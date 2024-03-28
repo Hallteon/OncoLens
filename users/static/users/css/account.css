@@ -1,0 +1,10 @@
+/* Карточка аккаунта */
+
+.account {
+    padding-top: 60px;
+    background-color: #F2F5F7;
+}
+
+.account__image {
+    font-size: 50px;
+}

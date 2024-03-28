@@ -1,0 +1,18 @@
+/* Превью */
+
+.preview {
+    padding-top: 60px;
+}
+
+.preview__summary {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.preview__button {
+    margin-top: 25px;
+}
+
+.preview__img {
+    width: 100%;
+}

@@ -1,0 +1,17 @@
+/* Авторизация */
+
+.login {
+    padding-top: 60px;
+}
+
+.forms-container__title_auth {
+    margin-bottom: 20px;
+}
+
+.form__button_auth {
+    display: block;
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+

@@ -1,0 +1,25 @@
+{% extends 'scans/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'scans/css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="preview content">
+    <div class="container">
+        <div class="row d-flex justify-content-between">
+            <div class="preview__detail col-xs-10 col-sm-12 col-md-9 col-lg-10 col-xl-7">
+                <p class="preview__summary">Сервис для автоматического распознавания опухолей на снимках МРТ, КТ и рентгена с помощью ИИ.</p>
+                
+                <div class="preview__button button-regular">
+                    <a href="{% url 'diagnosis' %}">Попробовать</a>
+                </div>
+            </div>
+            <div class="preview__image col-sm-4">
+                <!-- <img src="" alt="<nothing>"> -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

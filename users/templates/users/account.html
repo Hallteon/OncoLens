@@ -1,0 +1,20 @@
+{% extends 'scans/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'users/css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="account content">
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-lg-8 col-xl-5 text-center content-block account__information">
+                <p class="account__image"><i class="fa-solid fa-user-doctor"></i></p>
+                <p><span class="content-block__label">ФИО:</span> {{ request.user.lastname }} {{ request.user.firstname }} {{ request.user.surname }}</p>
+                <p><span class="content-block__label">Должность:</span> {{ request.user.speciality }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

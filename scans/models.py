@@ -8,7 +8,7 @@ from users.models import Patient
 
 
 class TumorStage(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Название')
+    name = models.CharField(unique=True, max_length=255, verbose_name='Название')
 
     def __str__(self):
         return self.name
@@ -19,7 +19,7 @@ class TumorStage(models.Model):
 
 
 class TumorCategory(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Название')
+    name = models.CharField(unique=True, max_length=255, verbose_name='Название')
 
     def __str__(self):
         return self.name
@@ -30,7 +30,7 @@ class TumorCategory(models.Model):
 
 
 class ScanAxis(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Название')
+    name = models.CharField(unique=True, max_length=255, verbose_name='Название')
 
     def __str__(self):
         return self.name
@@ -60,7 +60,7 @@ class ScanRecord(models.Model):
     tumor_diagnosed = models.BooleanField(blank=True, null=True, verbose_name='Опухоль диагностирована')
     tumor_predicted = models.BooleanField(blank=True, null=True, verbose_name='Опухоль предсказана')
     predicted_probability = models.FloatField(default=0, verbose_name='Вероятность наличия')
-    axis = models.ForeignKey('ScanAxis', on_delete=models.DO_NOTHING, related_name='scans_axis', verbose_name='Ось')
+    axis = models.ForeignKey('ScanAxis', blank=True, null=True, on_delete=models.DO_NOTHING, related_name='scans_axis', verbose_name='Ось')
     by_user = CurrentUserField(related_name='scans_author', verbose_name='Создатель')
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='scans_patient', verbose_name='Пациент')
     data = models.JSONField(blank=True, null=True, verbose_name='Данные')

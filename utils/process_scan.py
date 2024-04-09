@@ -38,7 +38,11 @@ class ScanAIProcessor:
 
     def classify_tumor(self):
         scan_image = Image.open(self.scan)
+<<<<<<< HEAD
+        model = YOLO('tumor_classifier3.pt')
+=======
         model = YOLO('tumor_classifier.pt')
+>>>>>>> 12de791440e059ac6fefbeffd0d2e1aa7ee81359
         results = model(scan_image)
         classes = results[0].names
         probs = results[0].probs.numpy()

@@ -10,7 +10,11 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-6 content-block">
+<<<<<<< HEAD
+                <a class="come-back" href="{% url 'user_scans' %}"><i class="fa-solid fa-arrow-left"></i> Назад</a> 
+=======
                 <a href="#" onclick="history.back(); return false;">Назад</a> 
+>>>>>>> 12de791440e059ac6fefbeffd0d2e1aa7ee81359
                 <h3 class="text-center forms-container__title forms-container__title_scan">МРТ снимок #{{ scan.pk }}</h3>
 
                 <img class="scan__image" src="{{ scan.predicted_image.url }}" alt="...">
@@ -40,6 +44,32 @@
                     <p><b>Стадия опухоли по мнению ИИ:</b> {{ scan.tumor_stage_ai.name }}</p>
                     <p><b>Категория опухоли по мнению ИИ:</b> {{ scan.tumor_category_ai.name }}</p>
                 </div>
+<<<<<<< HEAD
+
+                {% if not scan.final_tumor_stage or not scan.final_tumor_category %}
+                <form class="form scan__final" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="text-center form__errors">{{form.non_field_errors}}</div>
+
+                    {% for item in form %}
+                    <div class="row form-conteiner__item form-conteiner__item_final">
+                        <div class="col-sm-4 d-flex align-items-center">
+                            <label class="form__label" for="{{item.id_for_label}}">{{item.label}}: </label>
+                        </div>
+                        <div class="col-sm-8">
+                            {{item}}
+                        </div>
+                    </div>
+
+                    <div class="form__errors">{{item.errors}}</div>
+                    {% endfor %}
+
+                    <button class="form__button form__button_final button" type="submit">Поставить диагноз</button>
+                </form>
+                {% endif %}
+=======
+>>>>>>> 12de791440e059ac6fefbeffd0d2e1aa7ee81359
             </div>
         </div>
     </div>

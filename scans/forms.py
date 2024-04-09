@@ -24,5 +24,20 @@ class CreateScanRecordForm(forms.ModelForm):
 
     class Meta:
         model = ScanRecord
-        fields = ('base_image', 'tumor_diagnosed', 'tumor_stage_doctor', 'tumor_category_doctor', 'axis',
+        fields = ('base_image', 'tumor_diagnosed', 'tumor_stage_doctor', 'tumor_category_doctor', 'axis', 'patient')
+
+
+class SelectFinalScanDiagnosisForm(forms.ModelForm):
+    final_tumor_stage = forms.ModelChoiceField(label='Итоговая стадия после пересмотра',
+                                                queryset=TumorStage.objects.all(), required=False,
+                                                empty_label='Опухоль отсутствует',
+                                                widget=forms.Select(attrs={'class': 'form-select form__select'}))
+    final_tumor_category = forms.ModelChoiceField(label='Итоговая категория после пересмотра',
+                                                   queryset=TumorCategory.objects.all(), required=False,
+                                                   empty_label='Опухоль отсутствует',
+                                                   widget=forms.Select(attrs={'class': 'form-select form__select'}))
+
+    class Meta:
+        model = ScanRecord
+        fields = ('final_tumor_stage', 'final_tumor_category',
                   'patient')

@@ -3,9 +3,11 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, DetailView, ListView
 
-from scans.forms import CreateScanRecordForm
+from scans.forms import CreateScanRecordForm, SelectFinalScanDiagnosisForm
 from scans.models import TumorCategory, TumorStage, ScanRecord
+from scans.services.scans_service import ScanRecordProcessService
 from users.models import CustomUser
+from django.views.generic.edit import FormMixin
 from utils.process_scan import ScanAIProcessor
 
 
@@ -19,14 +21,13 @@ class ShowHomePage(TemplateView):
         return context
 
 
-class ScanDetectView(LoginRequiredMixin, CreateView):
-
+class ScanProcessView(LoginRequiredMixin, CreateView):
     form_class = CreateScanRecordForm
-    template_name = 'scans/tumor_diagnosis.html'
+    template_name = 'scans/scan_create.html'
     success_url = reverse_lazy('home')
 
     def get_form_kwargs(self):
-        kwargs = super(ScanDetectView, self).get_form_kwargs()
+        kwargs = super(ScanProcessView, self).get_form_kwargs()
         kwargs['user_id'] = self.request.user.id
 
         return kwargs
@@ -44,43 +45,16 @@ class ScanDetectView(LoginRequiredMixin, CreateView):
         process_scan = ScanAIProcessor(obj.pk, obj.base_image)
         predicted_scan = process_scan.detect_tumor()
         tumor_class = process_scan.classify_tumor().split(' ')
-        tumor_category = tumor_class[0]
 
-        if not TumorCategory.objects.filter(name=tumor_category):
-            cat = TumorCategory.objects.create(name=tumor_category)
-
-            if len(tumor_class) == 2:
-                tumor_stage = tumor_class[1]
-                obj.tumor_stage_ai = TumorStage.objects.filter(name=tumor_stage)[0]
-
-            obj.tumor_category_ai = cat
-
-        else:
-            if len(tumor_class) == 2:
-                tumor_stage = tumor_class[1]
-
-                if TumorStage.objects.filter(name=tumor_stage):
-                    obj.tumor_stage_ai = TumorStage.objects.filter(name=tumor_stage)[0]
-
-            if TumorCategory.objects.filter(name=tumor_category):
-                obj.tumor_category_ai = TumorCategory.objects.filter(name=tumor_category)[0]
-
-        obj.predicted_image = predicted_scan
-
-        if tumor_category != '_NORMAL':
-            obj.tumor_predicted = True
-        else:
-            obj.tumor_predicted = False
-
-        obj.by_user = CustomUser.objects.get(pk=self.request.user.pk)
-
-        obj.save()
+        ScanRecordProcessService(self.request.user.id, {'predicted_scan': predicted_scan,
+                                                       'tumor_class': tumor_class}, obj.id).execute()
 
         return redirect(obj.get_absolute_url())
 
 
-class ScanShowView(DetailView):
+class ScanDetailView(FormMixin, DetailView):
     model = ScanRecord
+    form_class = SelectFinalScanDiagnosisForm
     template_name = 'scans/scan_detail.html'
     pk_url_kwarg = 'scan_pk'
     context_object_name = 'scan'
@@ -91,8 +65,30 @@ class ScanShowView(DetailView):
 
         return context
 
+    def get_success_url(self):
+        return reverse_lazy('user_scans')
 
-class UserScansShowView(ListView):
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+
+        if form.is_valid():
+            return self.form_valid(form)
+
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.final_tumor_stage = form.cleaned_data['final_tumor_stage']
+        instance.final_tumor_category = form.cleaned_data['final_tumor_category']
+        instance.id = self.get_object().id
+
+        instance.save(update_fields=['final_tumor_stage', 'final_tumor_category'])
+
+        return super(ScanDetailView, self).form_valid(form)
+
+
+class UserScansListView(ListView):
     model = ScanRecord
     template_name = 'scans/user_scans.html'
     context_object_name = 'scans'
@@ -106,6 +102,4 @@ class UserScansShowView(ListView):
         context['title'] = 'Снимки пользователя'
 
         return context
-
-
 

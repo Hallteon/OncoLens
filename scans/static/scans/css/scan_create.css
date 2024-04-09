@@ -1,0 +1,21 @@
+/* Диагностика онкологии */
+
+.tumor-diagnosis {
+    padding-top: 60px;
+    background-color: #F2F5F7;
+}
+
+.forms-container__title_dianosis {
+    margin-bottom: 30px;
+}
+
+.form__button_diagnosis {
+    display: block;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 35px;
+}
+
+.form-conteiner__item_diagnosis {
+    margin-bottom: 20px;
+}

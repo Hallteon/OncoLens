@@ -11,6 +11,23 @@
     width: 100%;
 }
 
+<<<<<<< HEAD
+.scan__info, .scan__final {
+    margin-top: 30px;
+}
+
+.form__button_final {
+    display: block;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.form-conteiner__item_final {
+    margin-bottom: 20px;
+}
+=======
 .scan__info {
     margin-top: 30px;
 }
+>>>>>>> 12de791440e059ac6fefbeffd0d2e1aa7ee81359

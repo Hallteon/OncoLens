@@ -1,0 +1,39 @@
+{% extends 'scans/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'scans/css/scan_create.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="tumor-diagnosis content">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 form-container">
+                <h3 class="text-center forms-container__title forms-container__title_dianosis">Распознование опухоли</h3>
+
+                <form class="form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="text-center form__errors">{{form.non_field_errors}}</div>
+
+                    {% for item in form %}
+                    <div class="row form-conteiner__item form-conteiner__item_diagnosis">
+                        <div class="col-sm-4 d-flex align-items-center">
+                            <label class="form__label" for="{{item.id_for_label}}">{{item.label}}: </label>
+                        </div>
+                        <div class="col-sm-8">
+                            {{item}}
+                        </div>
+                    </div>
+
+                    <div class="form__errors">{{item.errors}}</div>
+                    {% endfor %}
+
+                    <button class="form__button form__button_diagnosis button" type="submit">Обработать снимок (AI)</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

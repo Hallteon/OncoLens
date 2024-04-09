@@ -15,8 +15,13 @@
 }
 
 .scan:hover {
+<<<<<<< HEAD
+    color: #7952b3;
+    border: 2px solid #7952b3;
+=======
     color: #00B2FF;
     border: 2px solid #00B2FF;;
+>>>>>>> 12de791440e059ac6fefbeffd0d2e1aa7ee81359
 }
 
 .scan__cover {

@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-6 form-container">
-                <h3 class="text-center forms-container__title forms-container__title_dianosis">Распознование опухоли</h3>
+                <h3 class="text-center forms-container__title forms-container__title_dianosis">Tumor recognition</h3>
 
                 <form class="form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -30,7 +30,7 @@
                     <div class="form__errors">{{item.errors}}</div>
                     {% endfor %}
 
-                    <button class="form__button form__button_diagnosis button" type="submit">Обработать скан с AI</button>
+                    <button class="form__button form__button_diagnosis button" type="submit">Process a photo with AI</button>
                 </form>
             </div>
         </div>

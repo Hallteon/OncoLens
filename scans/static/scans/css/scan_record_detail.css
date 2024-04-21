@@ -1,0 +1,91 @@
+/* Альбомы */
+
+.scans {
+    padding: 60px 0;
+}
+
+.scans__diagnosis_form {
+    margin-top: 60px;
+}
+
+.scans__num {
+    margin-bottom: 40px;
+}
+
+.scans__dianosis {
+    margin-top: 25px;
+}
+
+.scans__final {
+    margin-top: 40px;
+}
+
+.scan {
+    color: #0F0F0F;
+    padding: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 50px;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.scan:hover {
+    color: #7952b3;
+    border: 2px solid #7952b3;
+}
+
+.scan__cover {
+    display: block;
+    border: none;
+    object-fit: cover;
+    width: 100%;
+    height: 120px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.scan__name {
+    font-weight: 500;
+}
+
+.scan__info {
+    font-size: 14px;
+    padding: 15px 30px;
+}
+
+a.user-scans__create {
+    display: block;
+}
+
+.user-scans__creating {
+    margin-bottom: 50px;
+}
+
+.user-scans__link {
+    display: block;
+}
+
+.form__button_add {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-left: auto;
+    width: 40%;
+}
+
+
+@media screen and (max-width: 992px) {
+    .scan {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .user-scans__create {
+        margin-top: 20px;
+    }
+
+    .scan__cover {
+        height: 200px;
+    }
+}

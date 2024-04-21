@@ -8,13 +8,23 @@ from ultralytics import YOLO
 
 
 class ScanAIProcessor:
-    def __init__(self, id, scan):
+    def __init__(self, id, scan, tumor_type):
         self.id = id
         self.scan = scan
+        self.tumor_type = tumor_type
 
     def detect_tumor(self):
         scan_image = Image.open(self.scan)
-        model = YOLO('tumor_detector.pt')
+        scan_image = scan_image.resize((512, 512))
+        model = None
+        print(self.tumor_type)
+
+        if self.tumor_type == 'brain':
+            model = YOLO('brain_tumor_segmentation.pt')
+
+        elif self.tumor_type == 'lung':
+            model = YOLO('lung_tumor_detection.pt')
+
         results = model(scan_image)[0]
 
         im_bgr = results.plot()
@@ -38,11 +48,15 @@ class ScanAIProcessor:
 
     def classify_tumor(self):
         scan_image = Image.open(self.scan)
-<<<<<<< HEAD
-        model = YOLO('tumor_classifier3.pt')
-=======
-        model = YOLO('tumor_classifier.pt')
->>>>>>> 12de791440e059ac6fefbeffd0d2e1aa7ee81359
+        scan_image = scan_image.resize((512, 512))
+        model = None
+
+        if self.tumor_type == 'brain':
+            model = YOLO('brain_tumor_classification.pt')
+
+        elif self.tumor_type == 'lung':
+            model = YOLO('lung_tumor_classification.pt')
+
         results = model(scan_image)
         classes = results[0].names
         probs = results[0].probs.numpy()

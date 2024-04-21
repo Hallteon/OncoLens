@@ -1,4 +1,27 @@
-from scans.models import ScanRecord, TumorCategory, TumorStage
+from scans.models import *
+
+
+class ScanImageDAO:
+    __slots__ = ('_db',)
+
+    def __init__(self):
+        self._db = ScanImage
+
+    def get(self, scan_img_id: int):
+        return self._db.objects.get(id=scan_img_id)
+
+    def create(self, data: dict):
+        return self._db.objects.create(**data)
+
+    def update(self, scan_img_id: int, data: dict):
+        scan = self.get(scan_img_id)
+
+        for key, value in data.items():
+            setattr(scan, key, value)
+
+        scan.save()
+
+        return scan
 
 
 class ScanRecordDAO:
@@ -18,6 +41,17 @@ class ScanRecordDAO:
 
         for key, value in data.items():
             setattr(scan, key, value)
+
+        scan.save()
+
+        return scan
+
+    def update_scans(self, scan_id: int, data: dict):
+        scan = self.get(scan_id)
+
+        for scan_image in data['scans']:
+            scan.scans.add(scan_image)
+            scan.save()
 
         scan.save()
 
@@ -57,4 +91,19 @@ class TumorStageDAO:
     def get_by_name(self, stage: str):
         return self._db.objects.filter(name=stage).first()
 
+
+class TumorTypeDAO:
+    __slots__ = ('_db',)
+
+    def __init__(self):
+        self._db = TumorType
+
+    def create(self, data: dict):
+        return self._db.objects.create(**data)
+
+    def get(self, stage_id: int):
+        return self._db.objects.get(id=stage_id)
+
+    def get_by_name(self, tumor_type: str):
+        return self._db.objects.filter(tumor_type=tumor_type).first()
 

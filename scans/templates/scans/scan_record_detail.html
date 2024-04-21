@@ -1,0 +1,112 @@
+{% extends 'scans/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'scans/css/scan_record_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="scans content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 user-scans__creating">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-sm-6 col-lg-5 content-block">
+                        <a class="come-back" href="#" onclick="history.back(); return false;"><i class="fa-solid fa-arrow-left"></i> Back</a> 
+                        <p class="content-block__info scans__num">{{ scan_record.scans.count }} images</p>
+
+                        <p><b>Patient:</b> {{ scan_record.patient.lastname }} {{ scan_record.patient.firstname }} {{ scan_record.patient.surname }}</p>
+
+                        <div class="scans__dianosis">
+                            {% if scan_record.tumor_diagnosed %}
+                            <p><b>The tumor was diagnosed:</b> <i class="fa-solid fa-check"></i></p>
+        
+                            {% else %}
+                            <p><b>The tumor was diagnosed:</b> <i class="fa-solid fa-xmark"></i></p>
+        
+                            {% endif %}
+        
+                            <p><b>Tumor stage according to the doctor:</b> {{ scan_record.tumor_stage_doctor.name }}</p>
+                            <p><b>Tumor category according to the doctor:</b> {{ scan_record.tumor_category_doctor.name }}</p>
+                        </div>
+
+                        <div class="scans__dianosis">
+                            {% if scan_record.tumor_predicted %}
+                            <p><b>Tumor detected by AI:</b> <i class="fa-solid fa-check"></i></p>
+        
+                            {% else %}
+                            <p><b>Tumor detected by AI:</b> <i class="fa-solid fa-xmark"></i></p>
+        
+                            {% endif %}
+
+                            <p><b>Tumor category according to AI:</b> {{ scan_record.mean_tumor_category_ai.name }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 content-block">
+                        <form class="form" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+        
+                            <div class="text-center form__errors">{{form.non_field_errors}}</div>
+        
+                            {% for item in add_scans_form %}
+                            <div class="row form-conteiner__item form-conteiner__item_diagnosis">
+                                <div class="col-sm-4 d-flex align-items-center">
+                                    <label class="form__label" for="{{item.id_for_label}}">{{item.label}}: </label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{item}}
+                                </div>
+                            </div>
+        
+                            <div class="form__errors">{{item.errors}}</div>
+                            {% endfor %}
+        
+                            <button class="form__button_add button-regular" type="submit">Add images</button>
+                        </form>
+                        
+                        {% if not scan_record.final_tumor_stage or not scan_record.final_tumor_category %}
+                        <form class="form scans__diagnosis_form" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+        
+                            <div class="text-center form__errors">{{form.non_field_errors}}</div>
+        
+                            {% for item in select_diagnosis_form %}
+                            <div class="row form-conteiner__item form-conteiner__item_diagnosis">
+                                <div class="col-sm-4 d-flex align-items-center">
+                                    <label class="form__label" for="{{item.id_for_label}}">{{item.label}}: </label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{item}}
+                                </div>
+                            </div>
+        
+                            <div class="form__errors">{{item.errors}}</div>
+                            {% endfor %}
+        
+                            <button class="form__button_add button-regular" type="submit">Do diagnose</button>
+                        </form>
+                        {% else %}
+                        <p class="scans__final"><b>Final tumor stage:</b> {{ scan_record.final_tumor_stage.name }}</p>
+                        <p><b>Final tumor category:</b> {{ scan_record.final_tumor_category.name }}</p>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center justify-content-md-between">
+        {% for scan in scan_record.scans.all %}
+            <a class="content-block scan col-8 col-md-5 col-lg-2 col-xl-1" href="{{ scan.get_absolute_url }}">
+                <img class="scan__cover" src="{{  scan.processed_image.url }}" alt="...">
+                <div class="scan__info">
+                    <p>{{ scan_record.scan_type.name }} Image №{{ scan.pk }}</p>
+                    <p class="scan__date-created content-block__info">{{ scan.created_datetime|date:"d.m.Y H:i" }}</p>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

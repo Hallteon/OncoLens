@@ -42,10 +42,10 @@ class UserChangeForm(forms.ModelForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'form-control form-input form__input',
-                                                                                       'placeholder': 'Введите ваше логин'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control form-input form__input',
-                                                                                  'placeholder': 'Введите пароль'}))
+    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': 'form-control form-input form__input',
+                                                                                       'placeholder': 'Enter username'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control form-input form__input',
+                                                                                  'placeholder': 'Enter password'}))
 
     class Meta:
         fields = ('username', 'password')

@@ -66,6 +66,7 @@ p {
 
 .button-regular {
     display: inline-block;
+    background: inherit;
     color: #7952b3;
     font-size: 16px;
     font-weight: 600;
@@ -111,7 +112,6 @@ p {
     font-weight: 500;
 }
 
-<<<<<<< HEAD
 .come-back {
     color: #0F0F0F;
     font-weight: 600;
@@ -121,8 +121,6 @@ p {
     color: #7952b3;
 }
 
-=======
->>>>>>> 12de791440e059ac6fefbeffd0d2e1aa7ee81359
 /* Хедер */
 
 .navbar {
@@ -148,6 +146,10 @@ a.navbar__item {
 
 .navbar__user {
     font-weight: 500;
+}
+
+.navbar__solutions {
+    display: inline;
 }
 
 /* Контент */

@@ -89,6 +89,7 @@ class ScanImageDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f'Снимок №{self.get_object().pk}'
+        context['scan_image_type'] = self.get_object().scans_scan.first().scan_type.name
 
         return context
 

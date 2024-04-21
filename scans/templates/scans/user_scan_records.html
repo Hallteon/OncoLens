@@ -12,11 +12,11 @@
             <div class="col-12 content-block user-scans__creating">
                 <div class="row d-flex align-items-center">
                     <div class="col-sm-6 col-lg-4">
-                        <a class="come-back" href="#" onclick="history.back(); return false;"><i class="fa-solid fa-arrow-left"></i> Back</a> 
+                        <a class="come-back" href="#" onclick="history.back(); return false;"><i class="fa-solid fa-arrow-left"></i> Назад</a> 
                         <p class="content-block__info">{{ scan_records.count }} снимков</p>
                     </div>
 
-                    <a href="{% url 'scan_create' tumor_type %}" class="button-regular user-scans__create col-lg-2 text-center ms-auto me-0">Create a record</a>
+                    <a href="{% url 'scan_create' tumor_type %}" class="button-regular user-scans__create col-lg-2 text-center ms-auto me-0">Создать запись</a>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                 <img class="scan__cover" src="{{  firstfile.processed_image.url }}" alt="...">
                 {% endwith %}
                 <div class="scan__info">
-                    <p>{{ scan.scan_type }} record №{{ scan.pk }}</p>
+                    <p>Запись №{{ scan.pk }} ({{ scan.scan_type.name }})</p>
                     <p class="scan__date-created content-block__info">{{ scan.created_datetime|date:"d.m.Y H:i" }}</p>
                 </div>
             </a>

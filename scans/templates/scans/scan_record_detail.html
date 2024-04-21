@@ -12,34 +12,34 @@
             <div class="col-12 user-scans__creating">
                 <div class="row d-flex justify-content-between">
                     <div class="col-sm-6 col-lg-5 content-block">
-                        <a class="come-back" href="#" onclick="history.back(); return false;"><i class="fa-solid fa-arrow-left"></i> Back</a> 
-                        <p class="content-block__info scans__num">{{ scan_record.scans.count }} images</p>
+                        <a class="come-back" href="#" onclick="history.back(); return false;"><i class="fa-solid fa-arrow-left"></i> Назад</a> 
+                        <p class="content-block__info scans__num">{{ scan_record.scans.count }} снимков</p>
 
-                        <p><b>Patient:</b> {{ scan_record.patient.lastname }} {{ scan_record.patient.firstname }} {{ scan_record.patient.surname }}</p>
+                        <p><b>Пациент:</b> {{ scan_record.patient.lastname }} {{ scan_record.patient.firstname }} {{ scan_record.patient.surname }}</p>
 
                         <div class="scans__dianosis">
                             {% if scan_record.tumor_diagnosed %}
-                            <p><b>The tumor was diagnosed:</b> <i class="fa-solid fa-check"></i></p>
+                            <p><b>Опухоль диагностирована:</b> <i class="fa-solid fa-check"></i></p>
         
                             {% else %}
-                            <p><b>The tumor was diagnosed:</b> <i class="fa-solid fa-xmark"></i></p>
+                            <p><b>Опухоль диагностирована:</b> <i class="fa-solid fa-xmark"></i></p>
         
                             {% endif %}
         
-                            <p><b>Tumor stage according to the doctor:</b> {{ scan_record.tumor_stage_doctor.name }}</p>
-                            <p><b>Tumor category according to the doctor:</b> {{ scan_record.tumor_category_doctor.name }}</p>
+                            <p><b>Стадия опухоли по мнению врача:</b> {{ scan_record.tumor_stage_doctor.name }}</p>
+                            <p><b>Категория опухоли по мнению врача:</b> {{ scan_record.tumor_category_doctor.name }}</p>
                         </div>
 
                         <div class="scans__dianosis">
                             {% if scan_record.tumor_predicted %}
-                            <p><b>Tumor detected by AI:</b> <i class="fa-solid fa-check"></i></p>
+                            <p><b>Опухоль выявлена ИИ:</b> <i class="fa-solid fa-check"></i></p>
         
                             {% else %}
-                            <p><b>Tumor detected by AI:</b> <i class="fa-solid fa-xmark"></i></p>
+                            <p><b>Опухоль выявлена ИИ:</b> <i class="fa-solid fa-xmark"></i></p>
         
                             {% endif %}
 
-                            <p><b>Tumor category according to AI:</b> {{ scan_record.mean_tumor_category_ai.name }}</p>
+                            <p><b>Категория опухоли по мнению ИИ:</b> {{ scan_record.mean_tumor_category_ai.name }}</p>
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                             <div class="form__errors">{{item.errors}}</div>
                             {% endfor %}
         
-                            <button class="form__button_add button-regular" type="submit">Add images</button>
+                            <button class="form__button_add button-regular" type="submit">Добавить снимки</button>
                         </form>
                         
                         {% if not scan_record.final_tumor_stage or not scan_record.final_tumor_category %}
@@ -84,11 +84,11 @@
                             <div class="form__errors">{{item.errors}}</div>
                             {% endfor %}
         
-                            <button class="form__button_add button-regular" type="submit">Do diagnose</button>
+                            <button class="form__button_add button-regular" type="submit">Поставить диагноз</button>
                         </form>
                         {% else %}
-                        <p class="scans__final"><b>Final tumor stage:</b> {{ scan_record.final_tumor_stage.name }}</p>
-                        <p><b>Final tumor category:</b> {{ scan_record.final_tumor_category.name }}</p>
+                        <p class="scans__final"><b>Стадия после пересмотра:</b> {{ scan_record.final_tumor_stage.name }}</p>
+                        <p><b>Категория после пересмотра:</b> {{ scan_record.final_tumor_category.name }}</p>
 
                         {% endif %}
                     </div>
@@ -101,7 +101,7 @@
             <a class="content-block scan col-8 col-md-5 col-lg-2 col-xl-1" href="{{ scan.get_absolute_url }}">
                 <img class="scan__cover" src="{{  scan.processed_image.url }}" alt="...">
                 <div class="scan__info">
-                    <p>{{ scan_record.scan_type.name }} Image №{{ scan.pk }}</p>
+                    <p>{{ scan_record.scan_type.name }} снимок №{{ scan.pk }}</p>
                     <p class="scan__date-created content-block__info">{{ scan.created_datetime|date:"d.m.Y H:i" }}</p>
                 </div>
             </a>

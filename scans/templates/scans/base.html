@@ -35,19 +35,19 @@
                                 <ul class="navbar-nav align-items-center">
                                   <li class="nav-item">
                                     <div class="dropdown">
-                                      <button class="button-regular dropdown-toggle navbar__solutions navbar__item" type="button" data-bs-toggle="dropdown" aria-expanded="false">Image processing</button>
+                                      <button class="button-regular dropdown-toggle navbar__solutions navbar__item" type="button" data-bs-toggle="dropdown" aria-expanded="false">Обработка снимков</button>
 
                                       <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{% url 'user_scans' 'brain' %}">Brain Tumor</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'user_scans' 'lung' %}">Lung Tumor</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'user_scans' 'brain' %}">Онкология мозга</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'user_scans' 'lung' %}">Онкология грудной клетки</a></li>
                                       </ul>
                                     </div>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="navbar__item" href="#">Patient statistics</a>
+                                    <a class="navbar__item" href="#">Статистика пациентов</a>
                                   </li> 
                                   <li class="nav-item">
-                                    <a class="navbar__item" href="#">Practice</a>
+                                    <a class="navbar__item" href="#">Практика</a>
                                   </li>
                                   <li class="nav-item navbar__item_auth d-xl-none">
                                     {% if request.user.is_authenticated %}
@@ -57,13 +57,13 @@
                                         {{ request.user.username }} <i class="fa-regular fa-user"></i>
                                       </button>
                                       <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{% url 'account' %}">Account <i class="fa-solid fa-id-card"></i></a></li>
-                                        <li><a class="dropdown-item" href="{% url 'logout' %}">Log out <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                                        <li><a class="dropdown-item" href="{% url 'account' %}">Аккаунт <i class="fa-solid fa-id-card"></i></a></li>
+                                        <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                                       </ul>
                                     </div>
 
                                     {% else %}
-                                    <div class="navbar__button button"><a href="{% url 'login' %}">Log In</a></div>
+                                    <div class="navbar__button button"><a href="{% url 'login' %}">Войти</a></div>
 
                                     {% endif %}
                                   </li>
@@ -77,13 +77,13 @@
                                   {{ request.user.username }} <i class="fa-regular fa-user"></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="{% url 'account' %}">Account <i class="fa-solid fa-id-card"></i></a></li>
-                                  <li><a class="dropdown-item" href="{% url 'logout' %}">Log out <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                                  <li><a class="dropdown-item" href="{% url 'account' %}">Аккаунт <i class="fa-solid fa-id-card"></i></a></li>
+                                  <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                                 </ul>
                               </div>
 
                               {% else %}
-                              <div class="navbar__button button d-none d-xl-block"><a href="{% url 'login' %}">Log In</a></div>
+                              <div class="navbar__button button d-none d-xl-block"><a href="{% url 'login' %}">Войти</a></div>
 
                               {% endif %}
                             </div>

@@ -27,22 +27,22 @@ class MultipleFileField(forms.FileField):
 class CreateScanRecordForm(forms.ModelForm):
     def __init__(self, user_id, tumor_type, *args, **kwargs):
         super(CreateScanRecordForm, self).__init__(*args, **kwargs)
-        self.fields['patient'] = forms.ModelChoiceField(label='Patient', queryset=CustomUser.objects.get(id=user_id).patients.all(),
-                                                empty_label='Not chosen', widget=forms.Select(attrs={'class': 'form-select form__select'}))
-        self.fields['tumor_category_doctor'] = forms.ModelChoiceField(label='Diagnosed tumor category',
+        self.fields['patient'] = forms.ModelChoiceField(label='Пациент', queryset=CustomUser.objects.get(id=user_id).patients.all(),
+                                                empty_label='Не выбрано', widget=forms.Select(attrs={'class': 'form-select form__select'}))
+        self.fields['tumor_category_doctor'] = forms.ModelChoiceField(label='Категория опухоли (врач)',
                                                       queryset=TumorCategory.objects.filter(
                                                       tumor_type__tumor_type=f'{tumor_type}_tumor'),
                                                       required=False,
-                                                      empty_label='No tumor',
+                                                      empty_label='Отсутствует',
                                                       widget=forms.Select(attrs={'class': 'form-select form__select'}))
 
     scan_files = MultipleFileField()
-    scan_type = forms.ModelChoiceField(label='Photo type', queryset=ScanType.objects.all(), required=False,
-                                       empty_label='Not chosen',
+    scan_type = forms.ModelChoiceField(label='Тип снимка', queryset=ScanType.objects.all(), required=False,
+                                       empty_label='Не выбрано',
                                        widget=forms.Select(attrs={'class': 'form-select form__select'}))
-    tumor_stage_doctor = forms.ModelChoiceField(label='Diagnosed tumor stage',
+    tumor_stage_doctor = forms.ModelChoiceField(label='Стадия опухоли (врач)',
                                                 queryset=TumorStage.objects.all(), required=False,
-                                                empty_label='No tumor',
+                                                empty_label='Отсутствует',
                                                 widget=forms.Select(attrs={'class': 'form-select form__select'}))
 
     class Meta:
@@ -56,26 +56,26 @@ class SelectFinalScanDiagnosisForm(forms.ModelForm):
         super(SelectFinalScanDiagnosisForm, self).__init__(*args, **kwargs)
 
         if kwargs.get('initial', None):
-            self.fields['final_tumor_category'] = forms.ModelChoiceField(label='Final category after revision',
+            self.fields['final_tumor_category'] = forms.ModelChoiceField(label='Категория опухоли после пересмотра',
                                                                          queryset=TumorCategory.objects.filter(
                                                                              tumor_type=kwargs['initial'].get(
                                                                                  'tumor_type')),
                                                                          required=False,
-                                                                         empty_label='No tumor',
+                                                                         empty_label='Отсутствует',
                                                                          widget=forms.Select(attrs={
                                                                              'class': 'form-select form__select'}))
 
         else:
-            self.fields['final_tumor_category'] = forms.ModelChoiceField(label='Final category after revision',
+            self.fields['final_tumor_category'] = forms.ModelChoiceField(label='Категория опухоли после пересмотра',
                                                                          queryset=TumorCategory.objects.all(),
                                                                          required=False,
-                                                                         empty_label='No tumor',
+                                                                         empty_label='Отсутствует',
                                                                          widget=forms.Select(attrs={
                                                                              'class': 'form-select form__select'}))
 
-    final_tumor_stage = forms.ModelChoiceField(label='Final stage after revision',
+    final_tumor_stage = forms.ModelChoiceField(label='Стадия опухоли после пересмотра',
                                                 queryset=TumorStage.objects.all(), required=False,
-                                                empty_label='No tumor',
+                                                empty_label='Отсутствует',
                                                 widget=forms.Select(attrs={'class': 'form-select form__select'}))
 
     class Meta:
@@ -84,7 +84,7 @@ class SelectFinalScanDiagnosisForm(forms.ModelForm):
 
 
 class AddScanImageForm(forms.ModelForm):
-    scan_files = MultipleFileField(label='Additional pictures')
+    scan_files = MultipleFileField(label='Дополнительные снимки')
 
     class Meta:
         model = ScanImage

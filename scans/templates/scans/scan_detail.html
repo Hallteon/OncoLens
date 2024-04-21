@@ -10,13 +10,13 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-6 content-block">
-                <a class="come-back" href="#" onclick="history.back(); return false;"><i class="fa-solid fa-arrow-left"></i> Back</a>
-                <h3 class="text-center forms-container__title forms-container__title_scan">MRI image #{{ scan.pk }}</h3>
+                <a class="come-back" href="#" onclick="history.back(); return false;"><i class="fa-solid fa-arrow-left"></i> Назад</a>
+                <h3 class="text-center forms-container__title forms-container__title_scan">{{ scan_image_type }} снимок #{{ scan.pk }}</h3>
 
                 <img class="scan__image" src="{{ scan.processed_image.url }}" alt="...">
                 
                 <div class="scan__info">
-                    <p><b>Tumor category according to AI:</b> {{ scan.tumor_category_ai.name }}</p>
+                    <p><b>Категория опухоли по мнению ИИ:</b> {{ scan.tumor_category_ai.name }}</p>
                 </div>
             </div>
         </div>

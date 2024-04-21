@@ -2,6 +2,7 @@
 .venv
 */.env
 env/
+.env
 venv/
 ENV/
 env.bak/
@@ -10,3 +11,5 @@ venv.bak/
 # Pyre type checker
 .pyre/
 .idea/*
+
+.pt
